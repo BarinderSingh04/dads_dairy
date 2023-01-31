@@ -1,3 +1,4 @@
+import 'package:dads_dairy/screens/dairy_detailed_screen.dart';
 import 'package:dads_dairy/screens/page_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -33,37 +34,50 @@ class MyDairyScreen extends StatelessWidget {
                         left: 0,
                         right: 0,
                         bottom: 200,
-                        child: Image.asset(
-                          "assets/images/dairy.png",
-                          fit: BoxFit.contain,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const PageScreen(),
+                              ),
+                            );
+                          },
+                          child: Image.asset(
+                            "assets/images/dairy.png",
+                            fit: BoxFit.contain,
+                          ),
                         ),
                       ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const PageScreen(),
-                            ),
-                          );
-                        },
+                      Center(
                         child: Align(
                           alignment: const Alignment(0.0, -0.5),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: const [
-                              Text(
-                                "Upload New",
-                                style: TextStyle(
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const DairyDetailedScreen(),
+                                ),
+                              );
+                            },
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: const [
+                                Text(
+                                  "Upload New",
+                                  style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     color: Color(0xff55766a),
-                                    fontSize: 16,),
-                              ),
-                              Icon(
-                                Iconsax.add_square,
-                                size: 28,
-                                color: Color(0xff55766a),
-                              )
-                            ],
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                Icon(
+                                  Iconsax.add_square,
+                                  size: 28,
+                                  color: Color(0xff55766a),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -75,9 +89,7 @@ class MyDairyScreen extends StatelessWidget {
                           "— — — — — —",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold
-                          ),
+                              fontSize: 18.0, fontWeight: FontWeight.bold),
                         ),
                       )
                     ],

@@ -1,4 +1,5 @@
 import 'package:dads_dairy/screens/dairy_detailed_screen.dart';
+import 'package:dads_dairy/screens/place_order_screen.dart';
 import 'package:dads_dairy/widgets/appbar.dart';
 import 'package:dads_dairy/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,8 @@ class _PageScreenState extends State<PageScreen> {
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: TextButton.icon(
-              style: TextButton.styleFrom(foregroundColor: Theme.of(context).primaryColor),
+              style: TextButton.styleFrom(
+                  foregroundColor: Theme.of(context).primaryColor),
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -137,7 +139,7 @@ class _PageScreenState extends State<PageScreen> {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const DairyDetailedScreen(),
+                    builder: (context) => const PlaceOrderScreen(),
                   ),
                 );
               },

@@ -14,7 +14,9 @@ class MyAppbar extends StatelessWidget implements PreferredSizeWidget {
     this.actions,
     this.isBackRequired = true,
     this.title,
-    this.color, this.fontFamily, this.style,
+    this.color,
+    this.fontFamily,
+    this.style,
   });
 
   @override
@@ -24,7 +26,7 @@ class MyAppbar extends StatelessWidget implements PreferredSizeWidget {
           ? null
           : Text(
               title!,
-              style:  TextStyle(
+              style: TextStyle(
                 fontSize: 22,
                 color: Colors.black,
                 fontFamily: fontFamily,
@@ -39,6 +41,7 @@ class MyAppbar extends StatelessWidget implements PreferredSizeWidget {
       leading: isBackRequired
           ? IconButton(
               onPressed: () {
+                FocusManager.instance.primaryFocus?.unfocus();
                 Navigator.of(context).maybePop();
               },
               icon: const Icon(

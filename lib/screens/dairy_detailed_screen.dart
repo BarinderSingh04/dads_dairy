@@ -1,6 +1,4 @@
-import 'package:dads_dairy/screens/note_screen.dart';
 import 'package:dads_dairy/screens/page_screen.dart';
-import 'package:dads_dairy/screens/place_order_screen.dart';
 import 'package:dads_dairy/widgets/appbar.dart';
 import 'package:dads_dairy/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
@@ -16,9 +14,14 @@ class DairyDetailedScreen extends StatefulWidget {
 }
 
 class _DairyDetailedScreenState extends State<DairyDetailedScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   int selectedIndex = 0;
-  final _controller = PageController();
   final quilController = quil.QuillController.basic();
+  final FocusNode _focusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -30,124 +33,138 @@ class _DairyDetailedScreenState extends State<DairyDetailedScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: ListView(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "My Diary",
-                  style: TextStyle(
-                      color: Color(0xff172b4d), fontWeight: FontWeight.w600),
-                ),
-                const Gap(10),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    fillColor: Colors.white,
-                    filled: true,
-                    hintText: "Enter Title",
+        child: GestureDetector(
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: ListView(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "My Diary",
+                    style: TextStyle(
+                        color: Color(0xff172b4d), fontWeight: FontWeight.w600),
                   ),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xff172b4d),
+                  const Gap(10),
+                  TextFormField(
+                    autofocus: false,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      fillColor: Colors.white,
+                      filled: true,
+                      hintText: "Enter Title",
+                    ),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xff172b4d),
+                    ),
                   ),
-                ),
-                const Gap(16),
-                const Text(
-                  "Upload and attach files",
-                  style: TextStyle(
-                      color: Color(0xff172b4d), fontWeight: FontWeight.w600),
-                ),
-                const Gap(10),
-                Container(
-                  height: 140,
-                  decoration: const BoxDecoration(color: Colors.white),
-                  child: DottedBorder(
-                    padding: const EdgeInsets.all(24),
-                    color: const Color(0xff172b4d),
-                    strokeWidth: 1,
-                    dashPattern: const [5, 5],
-                    borderType: BorderType.RRect,
-                    radius: const Radius.circular(10),
-                    strokeCap: StrokeCap.round,
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Image.asset("assets/images/document.png"),
-                          const SizedBox(height: 4),
-                          const Text(
-                            ("Click here to upload picture"),
-                            style: TextStyle(color: Color(0xff898989)),
-                          ),
-                        ],
+                  const Gap(16),
+                  const Text(
+                    "Upload and attach files",
+                    style: TextStyle(
+                        color: Color(0xff172b4d), fontWeight: FontWeight.w600),
+                  ),
+                  const Gap(10),
+                  Container(
+                    height: 140,
+                    decoration: const BoxDecoration(color: Colors.white),
+                    child: DottedBorder(
+                      padding: const EdgeInsets.all(24),
+                      color: const Color(0xff172b4d),
+                      strokeWidth: 1,
+                      dashPattern: const [5, 5],
+                      borderType: BorderType.RRect,
+                      radius: const Radius.circular(10),
+                      strokeCap: StrokeCap.round,
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset("assets/images/document.png"),
+                            const SizedBox(height: 4),
+                            const Text(
+                              ("Click here to upload picture"),
+                              style: TextStyle(color: Color(0xff898989)),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const Gap(16),
-                const LoadingWidget(
-                  image: "assets/images/gallery.png",
-                  text: "Dads128735.jpeg",
-                  progressbar: "80%",
-                ),
-                const Gap(12),
-                const LoadingWidget(
-                  image: "assets/images/gallery.png",
-                  text: "Dads128735.jpeg",
-                  progressbar: "60%",
-                ),
-                const Gap(20),
-                const Text(
-                  "Page no. 1",
-                  style: TextStyle(
-                      color: Color(0xff172b4d), fontWeight: FontWeight.w600),
-                ),
-                const Gap(10),
-                quil.QuillToolbar.basic(
-                  controller: quilController,
-                  showSearchButton: false,
-                  iconTheme: quil.QuillIconTheme(
-                    iconSelectedFillColor: Theme.of(context).primaryColor,
-                    iconUnselectedFillColor: Colors.white,
+                  const Gap(16),
+                  const LoadingWidget(
+                    image: "assets/images/gallery.png",
+                    text: "Dads128735.jpeg",
+                    progressbar: "80%",
                   ),
-                  fontFamilyValues: const {
-                    'Roboto Mono': 'roboto-mono',
-                    "Holiday": "Holiday",
-                    'Nunito': 'nunito',
-                    'Pacifico': 'pacifico',
-                    'Clear': 'Clear'
-                  },
-                ),
-                const Gap(16),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 500,
-                  padding: const EdgeInsets.all(24),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white),
-                  child: quil.QuillEditor.basic(
+                  const Gap(12),
+                  const LoadingWidget(
+                    image: "assets/images/gallery.png",
+                    text: "Dads128735.jpeg",
+                    progressbar: "60%",
+                  ),
+                  const Gap(20),
+                  const Text(
+                    "Page no. 1",
+                    style: TextStyle(
+                        color: Color(0xff172b4d), fontWeight: FontWeight.w600),
+                  ),
+                  const Gap(10),
+                  quil.QuillToolbar.basic(
                     controller: quilController,
-                    readOnly: false, // true for view only mode
+                    showSearchButton: false,
+                    iconTheme: quil.QuillIconTheme(
+                      iconSelectedFillColor: Theme.of(context).primaryColor,
+                      iconUnselectedFillColor: Colors.white,
+                    ),
+                    fontFamilyValues: const {
+                      'Roboto Mono': 'roboto-mono',
+                      "Holiday": "Holiday",
+                      'Nunito': 'nunito',
+                      'Pacifico': 'pacifico',
+                      'Clear': 'Clear'
+                    },
                   ),
-                ),
-                const Gap(20),
-                PrimaryButton(
-                  title: "Submit",
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const PlaceOrderScreen(),
-                      ),
-                    );
-                  },
-                )
-              ],
-            ),
-          ],
+                  const Gap(16),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 500,
+                    padding: const EdgeInsets.all(24),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white),
+                    child: quil.QuillEditor(
+                      controller: quilController,
+                      scrollController: ScrollController(),
+                      scrollable: true,
+                      focusNode: _focusNode,
+                      autoFocus: false,
+                      readOnly: false,
+                      placeholder: 'Add content',
+                      expands: false,
+                      padding: const EdgeInsets.only(bottom: 10),
+                      scrollBottomInset: 150,
+                      // true for view only mode
+                    ),
+                  ),
+                  const Gap(20),
+                  PrimaryButton(
+                    title: "Submit",
+                    onPressed: () {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const PageScreen(),
+                        ),
+                      );
+                    },
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
